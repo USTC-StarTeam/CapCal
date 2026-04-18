@@ -1,0 +1,16 @@
+#
+# Core runtime dependencies for the cleaned public release.
+# `pip` will install the remaining transitive packages automatically.
+#
+
+torch>=2.2
+transformers>=4.45
+numpy>=1.24
+PyYAML>=6.0
+tqdm>=4.66
+beir>=2.0.0
+rank-bm25>=0.2.2
+ir-measures>=0.3.3
+
+# Optional:
+# vllm>=0.6

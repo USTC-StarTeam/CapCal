@@ -1,0 +1,8 @@
+name: rerank-bias
+channels:
+  - defaults
+dependencies:
+  - python=3.10
+  - numpy
+  - conda-pack
+  - pip
