@@ -220,6 +220,11 @@ By default:
 
 ## 10. Experimental Highlights
 
+![CapCal main reranking results](docs/assets/capcal-main-results.png)
+
+The paper's main result table is included here to show the reported NDCG@10 gains across MS MARCO and BEIR benchmarks before the distilled evidence summary.
+
+
 The paper evaluates CapCal on 10 ranking benchmarks from MS MARCO, TREC-DL, and BEIR with Qwen models from 0.6B to 8B.
 
 | Setting | Reported result | Takeaway |
@@ -259,7 +264,7 @@ If you use this repository, please cite:
 
 For paper questions, please contact:
 
-- Co-first authors: Hang Lv and Hongchao Gu.
+- Co-first authors: Hang Lv (`lvhang1001@mail.ustc.edu.cn`) and Hongchao Gu (`hcgu@mail.ustc.edu.cn`).
 - Corresponding author: Hao Wang (`wanghao3@ustc.edu.cn`)
 
 For repository issues, please open a GitHub issue in this repository.
