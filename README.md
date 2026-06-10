@@ -238,4 +238,9 @@ If you use this repository, please cite:
 
 ## 11. Contact
 
-For paper questions, contact Hao Wang at `wanghao3@ustc.edu.cn` or Enhong Chen at `cheneh@ustc.edu.cn`. For repository issues, please open a GitHub issue in this repository.
+For paper questions, please contact:
+
+- Co-first authors: Hang Lv and Hongchao Gu.
+- Corresponding author: Hao Wang (`wanghao3@ustc.edu.cn`)
+
+For repository issues, please open a GitHub issue in this repository.

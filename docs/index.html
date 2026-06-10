@@ -3,38 +3,284 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>CapCal: Project Page</title>
-  <meta name="description" content="Project page for Learning from Emptiness: De-biasing Listwise Rerankers with Content-Agnostic Probability Calibration.">
+  <title>CapCal: Learning from Emptiness</title>
   <style>
-:root{--ink:#172033;--muted:#5d6d82;--line:#d7dfeb;--paper:#fff;--soft:#f4f7fb;--blue:#2454d6;--green:#087443;--gold:#9f5f00}*{box-sizing:border-box}body{margin:0;color:var(--ink);background:#eef2f7;font-family:Inter,"Segoe UI",Arial,sans-serif;line-height:1.55;overflow-x:hidden}a{color:var(--blue);text-decoration:none;font-weight:700}a:hover{text-decoration:underline}.wrap{width:min(1120px,calc(100vw - 36px));margin:0 auto}header{background:#fff;border-bottom:1px solid var(--line)}nav{display:flex;align-items:center;justify-content:space-between;gap:20px;min-height:58px;font-size:14px}nav div{display:flex;gap:16px;flex-wrap:wrap}.hero{padding:48px 0 36px;background:#fff}.hero-grid{display:grid;grid-template-columns:minmax(0,1.03fr) minmax(360px,.97fr);gap:32px;align-items:center}.hero-grid>*{min-width:0}.eyebrow{color:var(--blue);font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px}h1{margin:0;font-size:clamp(32px,4.8vw,52px);line-height:1.05;letter-spacing:0;overflow-wrap:break-word}.subtitle{margin:18px 0 16px;color:var(--muted);font-size:18px;max-width:760px}.paper-ref{color:#324057;font-size:14px;margin:0 0 12px;padding-left:14px;border-left:3px solid var(--blue);max-width:790px}.paper-links{margin:0 0 18px;font-size:14px;font-weight:800}.buttons{display:flex;flex-wrap:wrap;gap:9px}.button{display:inline-flex;align-items:center;min-height:36px;border:1px solid #b8c4d9;background:#fff;color:#24344f;border-radius:6px;padding:0 13px;font-size:13px;font-weight:800}.button.primary{background:var(--blue);border-color:var(--blue);color:#fff}.figure{border:1px solid var(--line);border-radius:8px;background:#fff;padding:12px;box-shadow:0 18px 44px rgba(15,23,42,.08);max-width:100%;overflow:hidden}.figure img{display:block;width:100%;max-width:100%;height:auto;border-radius:5px}.caption{margin:10px 4px 0;color:var(--muted);font-size:12px}section{padding:46px 0}h2{margin:0 0 12px;font-size:30px;line-height:1.2;letter-spacing:0}.section-lead{margin:0 0 22px;color:var(--muted);max-width:840px;font-size:16px}.cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.card{background:#fff;border:1px solid var(--line);border-radius:8px;padding:18px}.card strong{display:block;margin-bottom:8px;font-size:16px}.card p{margin:0;color:var(--muted);font-size:14px}.metric{color:var(--green);font-size:26px;font-weight:900;line-height:1;margin-bottom:10px}pre{overflow:auto;background:#111827;color:#e5e7eb;border-radius:8px;padding:18px;font-size:13px;line-height:1.5;white-space:pre-wrap;word-break:break-word}code{font-family:"Cascadia Mono",Consolas,monospace}footer{padding:26px 0 42px;color:var(--muted);border-top:1px solid var(--line);background:#fff;font-size:14px}@media(max-width:900px){.hero-grid,.cards{grid-template-columns:1fr}.hero{padding-top:34px}nav{align-items:flex-start;flex-direction:column;padding:14px 0}}@media(max-width:560px){.wrap{width:min(1120px,calc(100vw - 22px))}h1{font-size:34px}h2{font-size:26px}.paper-ref{font-size:13px}}
-</style>
+    :root {
+      --ink: #172033;
+      --muted: #53657a;
+      --line: #d8e0ea;
+      --paper: #ffffff;
+      --soft: #f3f6fa;
+      --blue: #2454d6;
+      --green: #087443;
+      --gold: #9f6700;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; overflow-x: hidden; }
+    body {
+      color: var(--ink);
+      background: linear-gradient(180deg, #ffffff 0, #f6f8fb 360px, #eef2f7 100%);
+      font-family: Inter, "Segoe UI", Arial, sans-serif;
+      line-height: 1.62;
+    }
+    a { color: var(--blue); font-weight: 700; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .wrap { width: 100%; max-width: 1120px; margin: 0 auto; padding: 0 18px; }
+    .site-header { background: #fff; border-bottom: 1px solid var(--line); }
+    nav { min-height: 60px; display: flex; align-items: center; justify-content: space-between; gap: 18px; font-size: 14px; }
+    nav .brand { color: var(--ink); font-weight: 900; }
+    nav .nav-links { display: flex; flex-wrap: wrap; gap: 14px; }
+    .hero { padding: 48px 0 34px; }
+    .eyebrow { margin: 0 0 10px; color: var(--green); font-size: 13px; font-weight: 900; text-transform: uppercase; letter-spacing: .06em; }
+    h1 { margin: 0; max-width: 980px; font-size: clamp(32px, 5vw, 56px); line-height: 1.06; letter-spacing: 0; overflow-wrap: anywhere; word-break: break-word; }
+    .subtitle { max-width: 860px; margin: 18px 0 0; color: var(--muted); font-size: 18px; }
+    .quick-links { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
+    .button {
+      display: inline-flex; align-items: center; justify-content: center;
+      min-height: 38px; border: 1px solid #b9c5d8; border-radius: 6px;
+      padding: 0 13px; background: var(--paper); color: #263650; font-size: 14px;
+    }
+    main.wrap { padding: 34px 18px 64px; }
+    .toc {
+      display: flex; flex-wrap: wrap; gap: 8px;
+      padding: 14px; margin: 0 0 26px; border: 1px solid var(--line); border-radius: 8px; background: rgba(255,255,255,.78);
+    }
+    .toc a { font-size: 13px; padding: 6px 8px; border-radius: 6px; background: #eef3fb; color: #26405f; }
+    .content {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 32px;
+      box-shadow: 0 18px 44px rgba(15, 23, 42, .06);
+    }
+    h2 { margin: 42px 0 14px; padding-top: 4px; border-top: 1px solid var(--line); font-size: 30px; line-height: 1.22; letter-spacing: 0; }
+    h2:first-child { margin-top: 0; border-top: 0; }
+    h3 { margin: 28px 0 10px; font-size: 22px; line-height: 1.25; letter-spacing: 0; }
+    p, li, td, th, .nav-links a, .toc a, .button { overflow-wrap: anywhere; word-break: break-word; }
+    p { margin: 0 0 16px; }
+    ul, ol { padding-left: 24px; }
+    li { margin: 6px 0; }
+    img { max-width: 100%; height: auto; border-radius: 6px; }
+    p > img:only-child { display: block; margin: 18px auto; border: 1px solid var(--line); box-shadow: 0 12px 30px rgba(15, 23, 42, .08); }
+    pre { max-width: 100%; overflow-x: auto; white-space: pre; margin: 16px 0; padding: 16px; border-radius: 8px; background: #111827; color: #e5e7eb; line-height: 1.5; }
+    code { font-family: "Cascadia Mono", Consolas, monospace; font-size: .92em; }
+    :not(pre) > code { padding: .12em .35em; border-radius: 4px; background: #eef2f7; color: #17304f; }
+    table { display: block; width: 100%; max-width: 100%; overflow-x: auto; border-collapse: collapse; margin: 16px 0; }
+    th, td { padding: 9px 10px; border: 1px solid var(--line); vertical-align: top; }
+    th { background: #f4f7fb; text-align: left; }
+    blockquote { margin: 18px 0; padding: 10px 16px; border-left: 4px solid var(--blue); background: #f4f7fb; color: #334155; }
+    footer { padding: 28px 0 44px; color: var(--muted); font-size: 14px; }
+    @media (max-width: 760px) {
+      .wrap { padding: 0 12px; }
+      nav { align-items: flex-start; flex-direction: column; padding: 14px 0; }
+      nav .nav-links { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; width: 100%; }
+      nav .nav-links a { min-width: 0; padding: 6px 8px; border-radius: 6px; background: #eef3fb; font-size: 13px; line-height: 1.25; }
+      .hero { padding: 34px 0 26px; }
+      h1 { max-width: 100%; font-size: 30px; }
+      .subtitle { font-size: 16px; }
+      .quick-links { display: grid; grid-template-columns: minmax(0, 1fr); }
+      .button { min-width: 0; width: 100%; padding: 7px 8px; }
+      .content { padding: 22px 16px; }
+      main.wrap { padding: 28px 12px 56px; }
+      h2 { font-size: 25px; }
+      h3 { font-size: 20px; }
+      pre { white-space: pre-wrap; word-break: break-word; }
+    }
+  </style>
 </head>
 <body>
-  <header><nav class="wrap"><strong>CapCal</strong><div><a href="#method">1 Method</a><a href="#code">2 Code</a><a href="#results">3 Notes</a><a href="#citation">4 Citation</a></div></nav></header>
-  <main>
-    <section class="hero"><div class="wrap hero-grid"><div>
-      <div class="eyebrow">ACL 2026 / arXiv 2026</div>
-      <h1>Learning from Emptiness: De-biasing Listwise Rerankers with Content-Agnostic Probability Calibration</h1>
-      <p class="subtitle">CapCal estimates a listwise reranker&#x27;s content-agnostic positional prior and subtracts it during decoding to reduce structural position bias without retraining.</p>
-      <p class="paper-ref">Hang Lv, Hongchao Gu, Ruiqing Yang, Liangyue Li, Zulong Chen, Defu Lian, Hao Wang, and Enhong Chen. <strong>Learning from Emptiness: De-biasing Listwise Rerankers with Content-Agnostic Probability Calibration.</strong> ACL 2026, 2026.</p>
-      <p class="paper-links"><a href="https://arxiv.org/abs/2604.10150">Paper</a> / <a href="https://arxiv.org/pdf/2604.10150">PDF</a> / <a href="https://github.com/USTC-StarTeam/CapCal">Code</a> / <a href="#citation">Citation</a></p>
-      <div class="buttons"><a class="button primary" href="https://github.com/USTC-StarTeam/CapCal">Code</a><a class="button" href="https://arxiv.org/abs/2604.10150">Paper</a><a class="button" href="https://arxiv.org/pdf/2604.10150">PDF</a></div>
-    </div><figure class="figure"><img src="assets/capcal_overview.png" alt="CapCal method overview"><figcaption class="caption">CapCal compares standard and content-agnostic inputs to expose and calibrate position bias.</figcaption></figure></div></section>
-    <section id="method"><div class="wrap"><h2>1. Method At A Glance</h2><p class="section-lead">CapCal estimates a listwise reranker&#x27;s content-agnostic positional prior and subtracts it during decoding to reduce structural position bias without retraining.</p><div class="cards"><article class="card"><strong>1. Uses</strong><p>Uses placeholder passages to estimate positional priors.</p></article><article class="card"><strong>2. Supports</strong><p>Supports fixed and entropy-adaptive calibration.</p></article><article class="card"><strong>3. Runs</strong><p>Runs Qwen reranking experiments across TREC and BEIR-style datasets.</p></article></div></div></section>
-    <section id="code"><div class="wrap"><h2>2. Code And Usage</h2><p class="section-lead">Start from the repository commands below, then follow README details for data paths, model checkpoints, and evaluation outputs.</p><pre><code>conda create -n rerank-bias python=3.10 -y
-pip install -r requirements.txt
-python code/main/main.py --dataset_type beir --dataset_name trec-covid --num_queries 10 --dry_run
-bash code/scripts/qwen3_1_7b_fixed.sh</code></pre></div></section>
-    <section id="results"><div class="wrap"><h2>3. Repository Notes</h2><div class="cards"><article class="card"><div class="metric">Paper</div><strong>Identity first</strong><p>README and this page expose paper links, code links, and citation in the first screen.</p></article><article class="card"><div class="metric">Code</div><strong>Runnable path</strong><p>Usage instructions point to the maintained scripts without changing model behavior.</p></article><article class="card"><div class="metric">Assets</div><strong>Visual summary</strong><p>Figures are stored under <code>docs/assets/</code> so GitHub Pages can serve them reliably.</p></article></div></div></section>
-    <section id="citation"><div class="wrap"><h2>4. Citation</h2><pre><code>@misc{lv2026capcal,
-  title = {Learning from Emptiness: De-biasing Listwise Rerankers with Content-Agnostic Probability Calibration},
-  author = {Lv, Hang and Gu, Hongchao and Yang, Ruiqing and Li, Liangyue and Chen, Zulong and Lian, Defu and Wang, Hao and Chen, Enhong},
-  year = {2026},
-  eprint = {2604.10150},
-  archivePrefix = {arXiv},
-  url = {https://arxiv.org/abs/2604.10150}
-}</code></pre></div></section>
+  <header class="site-header">
+    <nav class="wrap">
+      <a class="brand" href="https://github.com/USTC-StarTeam/CapCal">USTC-StarTeam/CapCal</a>
+      <div class="nav-links"><a href="#1-paper">1. Paper</a><a href="#2-highlights">2. Highlights</a><a href="#3-method-at-a-glance">3. Method At A Glance</a><a href="#4-repository-structure-and-implementation">4. Repository Structure and Implementation</a><a href="#5-installation">5. Installation</a><a href="#6-data-layout">6. Data Layout</a><a href="#7-running-the-released-experiments">7. Running the Released Experiments</a><a href="#8-outputs">8. Outputs</a><a href="#9-notes-for-maintainers">9. Notes For Maintainers</a><a href="#10-citation">10. Citation</a><a href="#11-contact">11. Contact</a></div>
+    </nav>
+    <section class="hero">
+      <div class="wrap">
+        <p class="eyebrow">Academic Project Page</p>
+        <h1>CapCal: Learning from Emptiness</h1>
+        <p class="subtitle">CapCal is a training-free calibration method for listwise LLM rerankers. It estimates the reranker&#x27;s content-agnostic positional prior using placeholder passages, then calibrates output probabilities so ranking decisions rely less on structural position bias.</p>
+        <div class="quick-links"><a class="button" href="https://arxiv.org/abs/2604.10150">Paper</a><a class="button" href="https://arxiv.org/pdf/2604.10150">PDF</a><a class="button" href="https://ustc-starteam.github.io/CapCal/">Project Page</a><a class="button" href="https://github.com/USTC-StarTeam/CapCal">Code</a><a class="button" href="#citation">Citation</a><a class="button" href="https://github.com/USTC-StarTeam/CapCal">GitHub Repo</a></div>
+      </div>
+    </section>
+  </header>
+  <main class="wrap">
+    <div class="toc"><a href="#1-paper">1. Paper</a><a href="#2-highlights">2. Highlights</a><a href="#3-method-at-a-glance">3. Method At A Glance</a><a href="#4-repository-structure-and-implementation">4. Repository Structure and Implementation</a><a href="#5-installation">5. Installation</a><a href="#6-data-layout">6. Data Layout</a><a href="#7-running-the-released-experiments">7. Running the Released Experiments</a><a href="#8-outputs">8. Outputs</a><a href="#9-notes-for-maintainers">9. Notes For Maintainers</a><a href="#10-citation">10. Citation</a><a href="#11-contact">11. Contact</a></div>
+    <article class="content">
+<p><a href="https://ustc-starteam.github.io/CapCal/"><img src="https://img.shields.io/badge/Project-Page-2454d6.svg" alt="Project Page"></a>
+<a href="https://arxiv.org/abs/2604.10150"><img src="https://img.shields.io/badge/ACL-2026-4b6cb7.svg" alt="ACL 2026"></a>
+<a href="https://arxiv.org/abs/2604.10150"><img src="https://img.shields.io/badge/arXiv-2604.10150-b31b1b.svg" alt="arXiv"></a>
+<a href="https://www.python.org/"><img src="https://img.shields.io/badge/Python-3.10%2B-3776ab.svg" alt="Python"></a></p>
+<p>Official code for <strong>"Learning from Emptiness: De-biasing Listwise Rerankers with Content-Agnostic Probability Calibration"</strong>.</p>
+<p>The paper studies a core failure mode of listwise LLM rerankers: even when the candidate set is semantically identical, the model may still prefer some list positions over others. Our method, <strong>CapCal</strong>, treats this behavior as an explicit prior, estimates it from content-agnostic inputs, and subtracts it during decoding. The public release of this repository keeps the code needed to reproduce the paper's results.</p>
+<h2 id="1-paper">1. Paper</h2>
+<p>Hang Lv, Hongchao Gu, Ruiqing Yang, Liangyue Li, Zulong Chen, Defu Lian, Hao Wang, and Enhong Chen. <strong>Learning from Emptiness: De-biasing Listwise Rerankers with Content-Agnostic Probability Calibration.</strong> ACL 2026, 2026.</p>
+<p><a href="https://arxiv.org/abs/2604.10150">Paper</a> / <a href="https://arxiv.org/pdf/2604.10150">PDF</a> / <a href="https://ustc-starteam.github.io/CapCal/">Project Page</a> / <a href="https://github.com/USTC-StarTeam/CapCal">Code</a> / <a href="#citation">Citation</a></p>
+<p>CapCal is a training-free calibration method for listwise LLM rerankers. It estimates the reranker's content-agnostic positional prior using placeholder passages, then calibrates output probabilities so ranking decisions rely less on structural position bias.</p>
+<h2 id="2-highlights">2. Highlights</h2>
+<ul>
+<li>Estimates listwise reranker position bias with content-agnostic inputs.</li>
+<li>Calibrates ranking probabilities during decoding without model retraining.</li>
+<li>Supports both fixed and adaptive calibration strategies.</li>
+<li>Includes public scripts for Qwen reranking experiments and BM25 baselines.</li>
+</ul>
+<h2 id="3-method-at-a-glance">3. Method At A Glance</h2>
+<p><img src="assets/capcal_overview.png" alt="Overview of CapCal"></p>
+<p>CapCal is a <strong>training-free calibration framework</strong> for listwise reranking.</p>
+<p>Given a query and a list of candidate passages, we run the frozen reranker twice:</p>
+<ol>
+<li><strong>Standard input</strong>: the original query and candidate passages.</li>
+<li><strong>Content-agnostic input</strong>: the same query and the same passage identifiers, but every passage body is replaced with a placeholder.</li>
+</ol>
+<p>The second pass exposes the model's <strong>input-agnostic positional prior</strong>. Intuitively, if the model still prefers some document indices when the content is empty, that preference is structural bias rather than semantic relevance.</p>
+<p>CapCal then calibrates the ranking score by subtracting the excessive prior component from the standard probability:</p>
+<pre><code class="language-text">S(d_i) = P(d_i | x) - α · (P(d_i | x_empty) - 1 / |C_k|)</code></pre>
+<p>where:</p>
+<ul>
+<li><code>P(d_i | x)</code> is the identifier-level probability under the original prompt,</li>
+<li><code>P(d_i | x_empty)</code> is the identifier-level probability under the placeholder prompt,</li>
+<li><code>|C_k|</code> is the number of remaining candidates at decoding step <code>k</code>,</li>
+<li><code>α</code> is the calibration strength.</li>
+</ul>
+<p>This repository includes the two variants reported in the main paper:</p>
+<ul>
+<li><strong>Fixed calibration</strong>: uses a constant <code>α</code>.</li>
+<li><strong>Adaptive calibration</strong>: adjusts <code>α</code> from model uncertainty, using the entropy of the current candidate distribution.</li>
+</ul>
+<p>To make decoding valid for listwise ranking, the implementation also uses <strong>constrained decoding</strong>, so the model always produces a legal permutation of document identifiers.</p>
+<h2 id="4-repository-structure-and-implementation">4. Repository Structure and Implementation</h2>
+<p>The release is intentionally narrow: it focuses on the paper's main experimental surface rather than every exploratory branch developed during the project.</p>
+<pre><code class="language-text">.
+├── code/
+│   ├── dataloader/         # TREC-COVID and TREC-DL loaders
+│   ├── main/               # main experiment entry points and BM25 baseline
+│   ├── scripts/            # public Qwen experiment wrappers
+│   └── src/                # CapCal decoding, calibration, metrics, utilities
+├── docs/
+│   ├── assets/             # figures used in the documentation
+│   └── REPRODUCTION.md     # compact reproduction guide
+├── data/                   # expected data root (not versioned)
+├── results/                # generated outputs
+└── requirements.txt</code></pre>
+<p>The most important files are:</p>
+<ul>
+<li><code>code/src/llm_utils.py</code>: the retained CapCal implementations.<ul>
+<li><code>LLMExp_FixedBias</code></li>
+<li><code>LLMExp_AdaptiveBias</code></li>
+</ul>
+</li>
+<li><code>code/main/main.py</code>: the main runner for reranking experiments.</li>
+<li><code>code/main/calculate_bm25_baseline.py</code>: BM25 baseline computation.</li>
+<li><code>code/scripts/run_qwen_suite.sh</code>: shared shell runner used by all public model wrappers.</li>
+<li><code>code/scripts/qwen*_fixed.sh</code> and <code>code/scripts/qwen*_adaptive.sh</code>: ready-to-run scripts for the Qwen models used in the paper.</li>
+</ul>
+<p>The public experiment surface now includes only:</p>
+<ul>
+<li><strong>Models</strong>: Qwen2.5-7B-Instruct, Qwen3-0.6B, Qwen3-1.7B, Qwen3-4B, Qwen3-8B</li>
+<li><strong>Datasets</strong>: TREC-COVID, TREC DL 2019, TREC DL 2020, TREC DL 2021, TREC DL 2022, TREC DL 2023</li>
+<li><strong>Methods</strong>: fixed calibration, adaptive calibration, BM25 baseline</li>
+</ul>
+<h2 id="5-installation">5. Installation</h2>
+<p>We recommend <strong>Python 3.10</strong>.</p>
+<pre><code class="language-bash">conda create -n rerank-bias python=3.10 -y
+conda activate rerank-bias
+pip install -r requirements.txt</code></pre>
+<p><code>requirements.txt</code> is intentionally minimal and contains only the core runtime packages needed for the public release:</p>
+<ul>
+<li><code>torch</code></li>
+<li><code>transformers</code></li>
+<li><code>numpy</code></li>
+<li><code>PyYAML</code></li>
+<li><code>tqdm</code></li>
+<li><code>beir</code></li>
+<li><code>rank-bm25</code></li>
+<li><code>ir-measures</code></li>
+</ul>
+<p>If you want a compact step-by-step runbook, see <a href="REPRODUCTION.md">docs/REPRODUCTION.md</a>.</p>
+<h2 id="6-data-layout">6. Data Layout</h2>
+<p>All loaders resolve datasets relative to <code>RERANK_BIAS_DATA_ROOT</code>. If the variable is unset, the repository defaults to <code>./data</code>.</p>
+<pre><code class="language-bash">export RERANK_BIAS_DATA_ROOT=/path/to/your/data
+export RERANK_BIAS_HF_HOME=$RERANK_BIAS_DATA_ROOT/huggingface</code></pre>
+<p>Expected layout:</p>
+<pre><code class="language-text">$RERANK_BIAS_DATA_ROOT/
+├── beir/
+│   └── trec-covid/
+├── trec-dl-2019/
+├── trec-dl-2020/
+├── trec/
+│   ├── trec21/
+│   ├── trec22/
+│   └── trec23/
+└── msmarco_v2_passage/</code></pre>
+<h3 id="trec-covid">TREC-COVID</h3>
+<p>You can download the BEIR-formatted <code>trec-covid</code> data with:</p>
+<pre><code class="language-bash">python code/dataloader/download_datasets.py --datasets trec-covid</code></pre>
+<h3 id="trec-dl">TREC-DL</h3>
+<p>TREC DL data is expected locally:</p>
+<ul>
+<li><code>dl19</code> → <code>$RERANK_BIAS_DATA_ROOT/trec-dl-2019</code></li>
+<li><code>dl20</code> → <code>$RERANK_BIAS_DATA_ROOT/trec-dl-2020</code></li>
+<li><code>dl21</code> → <code>$RERANK_BIAS_DATA_ROOT/trec/trec21</code></li>
+<li><code>dl22</code> → <code>$RERANK_BIAS_DATA_ROOT/trec/trec22</code></li>
+<li><code>dl23</code> → <code>$RERANK_BIAS_DATA_ROOT/trec/trec23</code></li>
+</ul>
+<p>For <code>dl21</code>, <code>dl22</code>, and <code>dl23</code>, the loader also needs the MSMARCO v2 passage collection:</p>
+<pre><code class="language-bash">export RERANK_MSMARCO_V2_PASSAGE_DIR=/path/to/msmarco_v2_passage</code></pre>
+<p>If this variable is unset, the loader will look for <code>msmarco_v2_passage</code> under <code>RERANK_BIAS_DATA_ROOT</code>.</p>
+<h2 id="7-running-the-released-experiments">7. Running the Released Experiments</h2>
+<h3 id="1-verify-the-environment-and-dataset-path">1. Verify the environment and dataset path</h3>
+<pre><code class="language-bash">python code/main/main.py \
+  --dataset_type beir \
+  --dataset_name trec-covid \
+  --num_queries 10 \
+  --dry_run</code></pre>
+<h3 id="2-run-fixed-calibration">2. Run fixed calibration</h3>
+<pre><code class="language-bash">bash code/scripts/qwen3_1_7b_fixed.sh</code></pre>
+<h3 id="3-run-adaptive-calibration">3. Run adaptive calibration</h3>
+<pre><code class="language-bash">bash code/scripts/qwen3_1_7b_adaptive.sh</code></pre>
+<h3 id="4-override-datasets-or-calibration-strengths">4. Override datasets or calibration strengths</h3>
+<pre><code class="language-bash">NUM_QUERIES=100 \
+BIAS_RATES=&quot;1.0 1.5 2.0&quot; \
+TREC_DL_DATASETS=&quot;dl21 dl22 dl23&quot; \
+BEIR_DATASETS=&quot;trec-covid&quot; \
+bash code/scripts/qwen3_4b_fixed.sh</code></pre>
+<h3 id="5-compute-bm25-baselines">5. Compute BM25 baselines</h3>
+<pre><code class="language-bash">bash code/scripts/calculate_bm25_baseline_all.sh</code></pre>
+<h2 id="8-outputs">8. Outputs</h2>
+<p>By default:</p>
+<ul>
+<li>Qwen experiment outputs are written under <code>results/qwen/</code></li>
+<li>BM25 outputs are written under <code>results/bm25_baseline/</code></li>
+</ul>
+<h2 id="9-notes-for-maintainers">9. Notes For Maintainers</h2>
+<ul>
+<li>Keep generated outputs under <code>results/</code> and out of Git history unless they are curated release artifacts.</li>
+<li>Store new README/project-page figures under <code>docs/assets/</code>.</li>
+<li>Add ACL Anthology, slides, poster, or video links when official presentation materials become public.</li>
+</ul>
+<p><a id="citation"></a></p>
+<h2 id="10-citation">10. Citation</h2>
+<p>If you use this repository, please cite:</p>
+<pre><code class="language-bibtex">@misc{lv2026capcal,
+  title={Learning from Emptiness: De-biasing Listwise Rerankers with Content-Agnostic Probability Calibration},
+  author={Hang Lv and Hongchao Gu and Ruiqing Yang and Liangyue Li and Zulong Chen and Defu Lian and Hao Wang and Enhong Chen},
+  year={2026},
+  eprint={2604.10150},
+  archivePrefix={arXiv},
+  primaryClass={cs.AI},
+  url={https://arxiv.org/abs/2604.10150},
+}</code></pre>
+<h2 id="11-contact">11. Contact</h2>
+<p>For paper questions, please contact:</p>
+<ul>
+<li>Co-first authors: Hang Lv and Hongchao Gu.</li>
+<li>Corresponding author: Hao Wang (<code>wanghao3@ustc.edu.cn</code>)</li>
+</ul>
+<p>For repository issues, please open a GitHub issue in this repository.</p>
+
+    </article>
   </main>
-  <footer><div class="wrap">Code: <a href="https://github.com/USTC-StarTeam/CapCal">USTC-StarTeam/CapCal</a>.</div></footer>
+  <footer>
+    <div class="wrap">This project page mirrors the public-facing README content for quick paper, code, result, citation, and contact access.</div>
+  </footer>
 </body>
 </html>
