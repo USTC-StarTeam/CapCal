@@ -212,7 +212,26 @@ By default:
 - Qwen experiment outputs are written under `results/qwen/`
 - BM25 outputs are written under `results/bm25_baseline/`
 
-## 9. Notes For Maintainers
+## 9. Configuration Notes
+
+- `BIAS_RATES` controls the position-bias strength sweep used by the released scripts.
+- `TREC_DL_DATASETS` and `BEIR_DATASETS` can be overridden from the shell without editing scripts.
+- `RERANK_BIAS_DATA_ROOT` and `RERANK_MSMARCO_V2_PASSAGE_DIR` should point to local benchmark data roots before running full experiments.
+
+## 10. Experimental Highlights
+
+The paper evaluates CapCal on 10 ranking benchmarks from MS MARCO, TREC-DL, and BEIR with Qwen models from 0.6B to 8B.
+
+| Setting | Reported result | Takeaway |
+| --- | --- | --- |
+| Lightweight reranker | In high-bias scenarios, CapCal improves small models by **more than 10 NDCG points**. | Position calibration can unlock useful ranking quality from 0.6B-scale rerankers. |
+| Qwen3-0.6B fixed comparison | DL19 improves from **0.4916** to **0.5454**, DL20 from **0.3415** to **0.4126**, DL22 from **0.4858** to **0.5457**, and FiQA from **0.1807** to **0.2364**. | The gains appear across both TREC-DL and BEIR-style settings. |
+| Training-free baseline comparison | On Qwen3-0.6B, CapCal matches or beats permutation self-consistency while using one additional forward pass instead of 10 full reranking calls. | CapCal preserves single-pass-style efficiency better than permutation aggregation. |
+| Larger reranker | On Qwen3-8B, CapCal is better than PSC on DL20, DL22, DL23, Climate-FEVER, NFCorpus, and FiQA. | The calibration remains useful beyond very small models. |
+
+**Conclusion:** CapCal targets a concrete deployment tradeoff: reduce listwise position bias without retraining and without paying the latency cost of repeated prompt permutations.
+
+## 11. Notes For Maintainers
 
 - Keep generated outputs under `results/` and out of Git history unless they are curated release artifacts.
 - Store new README/project-page figures under `docs/assets/`.
@@ -220,7 +239,7 @@ By default:
 
 <a id="citation"></a>
 
-## 10. Citation
+## 12. Citation
 
 If you use this repository, please cite:
 
@@ -236,7 +255,7 @@ If you use this repository, please cite:
 }
 ```
 
-## 11. Contact
+## 13. Contact
 
 For paper questions, please contact:
 

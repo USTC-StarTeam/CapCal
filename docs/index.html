@@ -92,7 +92,7 @@
   <header class="site-header">
     <nav class="wrap">
       <a class="brand" href="https://github.com/USTC-StarTeam/CapCal">USTC-StarTeam/CapCal</a>
-      <div class="nav-links"><a href="#1-paper">1. Paper</a><a href="#2-highlights">2. Highlights</a><a href="#3-method-at-a-glance">3. Method At A Glance</a><a href="#4-repository-structure-and-implementation">4. Repository Structure and Implementation</a><a href="#5-installation">5. Installation</a><a href="#6-data-layout">6. Data Layout</a><a href="#7-running-the-released-experiments">7. Running the Released Experiments</a><a href="#8-outputs">8. Outputs</a><a href="#9-notes-for-maintainers">9. Notes For Maintainers</a><a href="#10-citation">10. Citation</a><a href="#11-contact">11. Contact</a></div>
+      <div class="nav-links"><a href="#1-paper">1. Paper</a><a href="#2-highlights">2. Highlights</a><a href="#3-method-at-a-glance">3. Method At A Glance</a><a href="#4-repository-structure-and-implementation">4. Repository Structure and Implementation</a><a href="#5-installation">5. Installation</a><a href="#6-data-layout">6. Data Layout</a><a href="#7-running-the-released-experiments">7. Running the Released Experiments</a><a href="#8-outputs">8. Outputs</a><a href="#9-configuration-notes">9. Configuration Notes</a><a href="#10-experimental-highlights">10. Experimental Highlights</a><a href="#11-notes-for-maintainers">11. Notes For Maintainers</a><a href="#12-citation">12. Citation</a><a href="#13-contact">13. Contact</a></div>
     </nav>
     <section class="hero">
       <div class="wrap">
@@ -104,7 +104,7 @@
     </section>
   </header>
   <main class="wrap">
-    <div class="toc"><a href="#1-paper">1. Paper</a><a href="#2-highlights">2. Highlights</a><a href="#3-method-at-a-glance">3. Method At A Glance</a><a href="#4-repository-structure-and-implementation">4. Repository Structure and Implementation</a><a href="#5-installation">5. Installation</a><a href="#6-data-layout">6. Data Layout</a><a href="#7-running-the-released-experiments">7. Running the Released Experiments</a><a href="#8-outputs">8. Outputs</a><a href="#9-notes-for-maintainers">9. Notes For Maintainers</a><a href="#10-citation">10. Citation</a><a href="#11-contact">11. Contact</a></div>
+    <div class="toc"><a href="#1-paper">1. Paper</a><a href="#2-highlights">2. Highlights</a><a href="#3-method-at-a-glance">3. Method At A Glance</a><a href="#4-repository-structure-and-implementation">4. Repository Structure and Implementation</a><a href="#5-installation">5. Installation</a><a href="#6-data-layout">6. Data Layout</a><a href="#7-running-the-released-experiments">7. Running the Released Experiments</a><a href="#8-outputs">8. Outputs</a><a href="#9-configuration-notes">9. Configuration Notes</a><a href="#10-experimental-highlights">10. Experimental Highlights</a><a href="#11-notes-for-maintainers">11. Notes For Maintainers</a><a href="#12-citation">12. Citation</a><a href="#13-contact">13. Contact</a></div>
     <article class="content">
 <p><a href="https://ustc-starteam.github.io/CapCal/"><img src="https://img.shields.io/badge/Project-Page-2454d6.svg" alt="Project Page"></a>
 <a href="https://arxiv.org/abs/2604.10150"><img src="https://img.shields.io/badge/ACL-2026-4b6cb7.svg" alt="ACL 2026"></a>
@@ -251,14 +251,53 @@ bash code/scripts/qwen3_4b_fixed.sh</code></pre>
 <li>Qwen experiment outputs are written under <code>results/qwen/</code></li>
 <li>BM25 outputs are written under <code>results/bm25_baseline/</code></li>
 </ul>
-<h2 id="9-notes-for-maintainers">9. Notes For Maintainers</h2>
+<h2 id="9-configuration-notes">9. Configuration Notes</h2>
+<ul>
+<li><code>BIAS_RATES</code> controls the position-bias strength sweep used by the released scripts.</li>
+<li><code>TREC_DL_DATASETS</code> and <code>BEIR_DATASETS</code> can be overridden from the shell without editing scripts.</li>
+<li><code>RERANK_BIAS_DATA_ROOT</code> and <code>RERANK_MSMARCO_V2_PASSAGE_DIR</code> should point to local benchmark data roots before running full experiments.</li>
+</ul>
+<h2 id="10-experimental-highlights">10. Experimental Highlights</h2>
+<p>The paper evaluates CapCal on 10 ranking benchmarks from MS MARCO, TREC-DL, and BEIR with Qwen models from 0.6B to 8B.</p>
+<table>
+<thead><tr>
+<th>Setting</th>
+<th>Reported result</th>
+<th>Takeaway</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Lightweight reranker</td>
+<td>In high-bias scenarios, CapCal improves small models by <strong>more than 10 NDCG points</strong>.</td>
+<td>Position calibration can unlock useful ranking quality from 0.6B-scale rerankers.</td>
+</tr>
+<tr>
+<td>Qwen3-0.6B fixed comparison</td>
+<td>DL19 improves from <strong>0.4916</strong> to <strong>0.5454</strong>, DL20 from <strong>0.3415</strong> to <strong>0.4126</strong>, DL22 from <strong>0.4858</strong> to <strong>0.5457</strong>, and FiQA from <strong>0.1807</strong> to <strong>0.2364</strong>.</td>
+<td>The gains appear across both TREC-DL and BEIR-style settings.</td>
+</tr>
+<tr>
+<td>Training-free baseline comparison</td>
+<td>On Qwen3-0.6B, CapCal matches or beats permutation self-consistency while using one additional forward pass instead of 10 full reranking calls.</td>
+<td>CapCal preserves single-pass-style efficiency better than permutation aggregation.</td>
+</tr>
+<tr>
+<td>Larger reranker</td>
+<td>On Qwen3-8B, CapCal is better than PSC on DL20, DL22, DL23, Climate-FEVER, NFCorpus, and FiQA.</td>
+<td>The calibration remains useful beyond very small models.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Conclusion:</strong> CapCal targets a concrete deployment tradeoff: reduce listwise position bias without retraining and without paying the latency cost of repeated prompt permutations.</p>
+<h2 id="11-notes-for-maintainers">11. Notes For Maintainers</h2>
 <ul>
 <li>Keep generated outputs under <code>results/</code> and out of Git history unless they are curated release artifacts.</li>
 <li>Store new README/project-page figures under <code>docs/assets/</code>.</li>
 <li>Add ACL Anthology, slides, poster, or video links when official presentation materials become public.</li>
 </ul>
 <p><a id="citation"></a></p>
-<h2 id="10-citation">10. Citation</h2>
+<h2 id="12-citation">12. Citation</h2>
 <p>If you use this repository, please cite:</p>
 <pre><code class="language-bibtex">@misc{lv2026capcal,
   title={Learning from Emptiness: De-biasing Listwise Rerankers with Content-Agnostic Probability Calibration},
@@ -269,7 +308,7 @@ bash code/scripts/qwen3_4b_fixed.sh</code></pre>
   primaryClass={cs.AI},
   url={https://arxiv.org/abs/2604.10150},
 }</code></pre>
-<h2 id="11-contact">11. Contact</h2>
+<h2 id="13-contact">13. Contact</h2>
 <p>For paper questions, please contact:</p>
 <ul>
 <li>Co-first authors: Hang Lv and Hongchao Gu.</li>
