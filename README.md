@@ -1,10 +1,30 @@
-# CapCal
+# CapCal: Learning from Emptiness
 
-This repository accompanies the paper **Learning from Emptiness: De-biasing Listwise Rerankers with Content-Agnostic Probability Calibration**.
+[![Project Page](https://img.shields.io/badge/Project-Page-2454d6.svg)](https://ustc-starteam.github.io/CapCal/)
+[![ACL 2026](https://img.shields.io/badge/ACL-2026-4b6cb7.svg)](https://arxiv.org/abs/2604.10150)
+[![arXiv](https://img.shields.io/badge/arXiv-2604.10150-b31b1b.svg)](https://arxiv.org/abs/2604.10150)
+[![Python](https://img.shields.io/badge/Python-3.10%2B-3776ab.svg)](https://www.python.org/)
 
-The paper studies a core failure mode of listwise LLM rerankers: even when the candidate set is semantically identical, the model may still prefer some list positions over others. Our method, **CapCal**, treats this behavior as an explicit prior, estimates it from content-agnostic inputs, and subtracts it during decoding. The public release of this repository keeps  the code needed to reproduce the paper's results.
+Official code for **"Learning from Emptiness: De-biasing Listwise Rerankers with Content-Agnostic Probability Calibration"**.
 
-## Method Overview
+The paper studies a core failure mode of listwise LLM rerankers: even when the candidate set is semantically identical, the model may still prefer some list positions over others. Our method, **CapCal**, treats this behavior as an explicit prior, estimates it from content-agnostic inputs, and subtracts it during decoding. The public release of this repository keeps the code needed to reproduce the paper's results.
+
+## 1. Paper
+
+Hang Lv, Hongchao Gu, Ruiqing Yang, Liangyue Li, Zulong Chen, Defu Lian, Hao Wang, and Enhong Chen. **Learning from Emptiness: De-biasing Listwise Rerankers with Content-Agnostic Probability Calibration.** ACL 2026, 2026.
+
+[Paper](https://arxiv.org/abs/2604.10150) / [PDF](https://arxiv.org/pdf/2604.10150) / [Project Page](https://ustc-starteam.github.io/CapCal/) / [Code](https://github.com/USTC-StarTeam/CapCal) / [Citation](#citation)
+
+CapCal is a training-free calibration method for listwise LLM rerankers. It estimates the reranker's content-agnostic positional prior using placeholder passages, then calibrates output probabilities so ranking decisions rely less on structural position bias.
+
+## 2. Highlights
+
+- Estimates listwise reranker position bias with content-agnostic inputs.
+- Calibrates ranking probabilities during decoding without model retraining.
+- Supports both fixed and adaptive calibration strategies.
+- Includes public scripts for Qwen reranking experiments and BM25 baselines.
+
+## 3. Method At A Glance
 
 ![Overview of CapCal](docs/assets/capcal_overview.png)
 
@@ -37,7 +57,7 @@ This repository includes the two variants reported in the main paper:
 
 To make decoding valid for listwise ranking, the implementation also uses **constrained decoding**, so the model always produces a legal permutation of document identifiers.
 
-## Repository Structure and Implementation
+## 4. Repository Structure and Implementation
 
 The release is intentionally narrow: it focuses on the paper's main experimental surface rather than every exploratory branch developed during the project.
 
@@ -72,7 +92,7 @@ The public experiment surface now includes only:
 - **Datasets**: TREC-COVID, TREC DL 2019, TREC DL 2020, TREC DL 2021, TREC DL 2022, TREC DL 2023
 - **Methods**: fixed calibration, adaptive calibration, BM25 baseline
 
-## Installation
+## 5. Installation
 
 We recommend **Python 3.10**.
 
@@ -95,7 +115,7 @@ pip install -r requirements.txt
 
 If you want a compact step-by-step runbook, see [docs/REPRODUCTION.md](docs/REPRODUCTION.md).
 
-## Data Layout
+## 6. Data Layout
 
 All loaders resolve datasets relative to `RERANK_BIAS_DATA_ROOT`. If the variable is unset, the repository defaults to `./data`.
 
@@ -145,7 +165,7 @@ export RERANK_MSMARCO_V2_PASSAGE_DIR=/path/to/msmarco_v2_passage
 
 If this variable is unset, the loader will look for `msmarco_v2_passage` under `RERANK_BIAS_DATA_ROOT`.
 
-## Running the Released Experiments
+## 7. Running the Released Experiments
 
 ### 1. Verify the environment and dataset path
 
@@ -185,19 +205,27 @@ bash code/scripts/qwen3_4b_fixed.sh
 bash code/scripts/calculate_bm25_baseline_all.sh
 ```
 
-## Outputs
+## 8. Outputs
 
 By default:
 
 - Qwen experiment outputs are written under `results/qwen/`
 - BM25 outputs are written under `results/bm25_baseline/`
 
-## Citation
+## 9. Notes For Maintainers
+
+- Keep generated outputs under `results/` and out of Git history unless they are curated release artifacts.
+- Store new README/project-page figures under `docs/assets/`.
+- Add ACL Anthology, slides, poster, or video links when official presentation materials become public.
+
+<a id="citation"></a>
+
+## 10. Citation
 
 If you use this repository, please cite:
 
 ```bibtex
-@misc{lv2026learningemptinessdebiasinglistwise,
+@misc{lv2026capcal,
   title={Learning from Emptiness: De-biasing Listwise Rerankers with Content-Agnostic Probability Calibration},
   author={Hang Lv and Hongchao Gu and Ruiqing Yang and Liangyue Li and Zulong Chen and Defu Lian and Hao Wang and Enhong Chen},
   year={2026},
@@ -207,3 +235,7 @@ If you use this repository, please cite:
   url={https://arxiv.org/abs/2604.10150},
 }
 ```
+
+## 11. Contact
+
+For paper questions, contact Hao Wang at `wanghao3@ustc.edu.cn` or Enhong Chen at `cheneh@ustc.edu.cn`. For repository issues, please open a GitHub issue in this repository.
